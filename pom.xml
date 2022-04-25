@@ -20,6 +20,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <netty.version>4.1.75.Final</netty.version>
         <kryo.version>5.3.0</kryo.version>
+        <cglib.version>3.2.4</cglib.version>
         <!--logging-->
         <slf4j.version>1.7.36</slf4j.version>
         <!-- test -->

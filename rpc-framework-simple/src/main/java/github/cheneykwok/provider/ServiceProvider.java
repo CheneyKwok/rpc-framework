@@ -1,13 +1,13 @@
 package github.cheneykwok.provider;
 
-import github.cheneykwok.config.RpcServerConfig;
+import github.cheneykwok.config.RpcServiceConfig;
 
 public interface ServiceProvider {
 
     /**
-     * @param rpcServerConfig rpc service related attributes
+     * @param rpcServiceConfig rpc service related attributes
      */
-    void addService(RpcServerConfig rpcServerConfig);
+    void addService(RpcServiceConfig rpcServiceConfig);
 
     /**
      * @param rpcServiceName rpc service name
@@ -17,7 +17,9 @@ public interface ServiceProvider {
 
     /**
      *
-     * @param rpcServerConfig rpc service related attributes
+     * @param rpcServiceConfig rpc service related attributes
+     * @param port service port
      */
-    void publishService(RpcServerConfig rpcServerConfig);
+    void publishService(RpcServiceConfig rpcServiceConfig, int port);
+
 }

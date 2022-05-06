@@ -35,5 +35,6 @@ public class CustomThreadPoolConfig {
     private TimeUnit unit = DEFAULT_TIME_UNIT;
     private int BLOCKING_QUEUE_CAPACITY = DEFAULT_BLOCKING_QUEUE_CAPACITY;
 
+    // 使用有界队列
     private BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
 }

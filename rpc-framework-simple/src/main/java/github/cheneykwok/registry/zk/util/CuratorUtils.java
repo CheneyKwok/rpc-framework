@@ -27,7 +27,7 @@ public final class CuratorUtils {
 
     private static final int MAX_retries = 3;
 
-    private static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";
+    public static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";
 
     private static final Map<String, List<String>> SERVICE_ADDRESS_MAP = new ConcurrentHashMap<>();
 

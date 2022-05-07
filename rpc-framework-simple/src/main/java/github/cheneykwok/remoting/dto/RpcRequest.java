@@ -23,7 +23,7 @@ public class RpcRequest implements Serializable {
 
     private Object[] parameters;
 
-    private Class<?> paramTypes;
+    private Class<?>[] paramTypes;
 
     /**
      * 为后续不兼容升级提供可能

@@ -1,5 +1,6 @@
 package github.cheneykwok.loadbalance;
 
+import github.cheneykwok.extension.SPI;
 import github.cheneykwok.remoting.dto.RpcRequest;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /**
  * Interface to the load balancing policy
  */
+@SPI
 public interface LoadBalance {
 
     /**

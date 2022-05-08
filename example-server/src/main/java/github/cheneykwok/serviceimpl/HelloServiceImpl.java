@@ -2,10 +2,11 @@ package github.cheneykwok.serviceimpl;
 
 import github.cheneykwok.Hello;
 import github.cheneykwok.HelloService;
+import github.cheneykwok.annotations.RpcService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-
+@RpcService
 public class HelloServiceImpl implements HelloService {
 
     static {

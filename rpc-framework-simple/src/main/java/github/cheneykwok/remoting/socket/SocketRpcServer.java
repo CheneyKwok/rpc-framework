@@ -21,7 +21,7 @@ public class SocketRpcServer {
 
     private final ServiceProvider serviceProvider;
 
-    private final int port = 8811;
+    public static final int port = 8811;
 
     public SocketRpcServer() {
         this.threadPool = ThreadPoolFactoryUtil.createCustomThreadPoolIfAbsent("socket-server-rpc-pool");

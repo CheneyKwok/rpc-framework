@@ -12,13 +12,13 @@ import java.net.Socket;
 
 
 @Slf4j
-public class SocketRpcRequestHandlerRunnable implements Runnable {
+public class SocketRpcServerHandler implements Runnable {
 
     private final Socket socket;
 
     private final RpcRequestHandler rpcRequestHandler;
 
-    public SocketRpcRequestHandlerRunnable(Socket socket) {
+    public SocketRpcServerHandler(Socket socket) {
         this.socket = socket;
         this.rpcRequestHandler = SingleFactory.getInstance(RpcRequestHandler.class);
     }

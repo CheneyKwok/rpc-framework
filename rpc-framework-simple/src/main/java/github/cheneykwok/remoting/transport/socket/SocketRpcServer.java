@@ -40,7 +40,7 @@ public class SocketRpcServer {
             Socket socket;
             while ((socket = serverSocket.accept()) != null) {
                 log.info("client connected [{}]", serverSocket.getInetAddress());
-                threadPool.execute(new SocketRpcRequestHandlerRunnable(socket));
+                threadPool.execute(new SocketRpcServerHandler(socket));
             }
         } catch (Exception e) {
             log.error(e.getMessage());

@@ -6,7 +6,7 @@ import github.cheneykwok.enums.RpcResponseCodeEnum;
 import github.cheneykwok.exception.RpcException;
 import github.cheneykwok.remoting.dto.RpcRequest;
 import github.cheneykwok.remoting.dto.RpcResponse;
-import github.cheneykwok.remoting.socket.SocketRpcClient;
+import github.cheneykwok.remoting.transport.socket.SocketRpcClient;
 import github.cheneykwok.remoting.transport.RpcRequestTransport;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 
 @Slf4j

@@ -1,4 +1,4 @@
-package github.cheneykwok.remoting.socket;
+package github.cheneykwok.remoting.transport.socket;
 
 import github.cheneykwok.config.CustomShutdownHook;
 import github.cheneykwok.config.RpcServiceConfig;

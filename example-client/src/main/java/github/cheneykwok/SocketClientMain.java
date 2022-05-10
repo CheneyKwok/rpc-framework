@@ -1,9 +1,6 @@
 package github.cheneykwok;
 
 import github.cheneykwok.annotations.RpcScan;
-import github.cheneykwok.config.RpcServiceConfig;
-import github.cheneykwok.proxy.RpcClientProxy;
-import github.cheneykwok.remoting.socket.SocketRpcClient;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @RpcScan(basePackage = {"github.cheneykwok"})

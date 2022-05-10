@@ -1,4 +1,4 @@
-package github.cheneykwok.remoting.socket;
+package github.cheneykwok.remoting.transport.socket;
 
 import github.cheneykwok.factory.SingleFactory;
 import github.cheneykwok.remoting.dto.RpcRequest;

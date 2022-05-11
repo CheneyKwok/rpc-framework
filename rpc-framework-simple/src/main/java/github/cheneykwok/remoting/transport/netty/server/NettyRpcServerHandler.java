@@ -1,11 +1,13 @@
 package github.cheneykwok.remoting.transport.netty.server;
 
 import github.cheneykwok.enums.CompressTypeEnum;
+import github.cheneykwok.enums.RpcResponseCodeEnum;
 import github.cheneykwok.enums.SerializationTypeEnum;
 import github.cheneykwok.factory.SingleFactory;
 import github.cheneykwok.remoting.constants.RpcConstants;
 import github.cheneykwok.remoting.dto.RpcMessage;
 import github.cheneykwok.remoting.dto.RpcRequest;
+import github.cheneykwok.remoting.dto.RpcResponse;
 import github.cheneykwok.remoting.handler.RpcRequestHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -39,6 +41,12 @@ public class NettyRpcServerHandler extends ChannelInboundHandlerAdapter implemen
                     Object result = rpcRequestHandler.handle(rpcRequest);
                     log.info(String.format("server get result: %s", result.toString()));
                     rpcMessage.setMessageType(RESPONSE_TYPE);
+                    if (ctx.channel().isActive() && ctx.channel().isWritable()) {
+                        RpcResponse<Object> rpcResponse = RpcResponse.success(result, rpcRequest.getRequestId());
+                        rpcMessage.setData(rpcResponse);
+                    } else {
+                        RpcResponse<Object> rpcResponse = RpcResponse.fail(RpcResponseCodeEnum.FAIL);
+                    }
 
                 }
             }

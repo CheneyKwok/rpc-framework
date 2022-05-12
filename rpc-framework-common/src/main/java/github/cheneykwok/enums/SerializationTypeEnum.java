@@ -11,9 +11,9 @@ public enum SerializationTypeEnum {
 
     KYRO((byte) 0x01, "kyro"),
 
-    PROTOSTUFF((byte) 0x012, "kyro"),
+    PROTOSTUFF((byte) 0x012, "protostuff"),
 
-    HESSIAN((byte) 0x03, "kyro"),
+    HESSIAN((byte) 0x03, "hessian"),
 
     NULL(Byte.MIN_VALUE, "");
 

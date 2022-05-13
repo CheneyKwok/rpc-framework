@@ -11,15 +11,14 @@ import github.cheneykwok.remoting.dto.RpcResponse;
 import github.cheneykwok.remoting.handler.RpcRequestHandler;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-public class NettyRpcServerHandler extends ChannelInboundHandlerAdapter implements RpcConstants {
+public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcMessage> implements RpcConstants {
 
     private final RpcRequestHandler rpcRequestHandler;
 
@@ -29,11 +28,10 @@ public class NettyRpcServerHandler extends ChannelInboundHandlerAdapter implemen
 
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        try {
-            if (msg instanceof RpcMessage) {
+    public void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) throws Exception {
+            if (msg != null) {
                 log.info("server receive msg: [{}]", msg);
-                byte messageType = ((RpcMessage) msg).getMessageType();
+                byte messageType = msg.getMessageType();
                 RpcMessage rpcMessage = new RpcMessage();
                 rpcMessage.setCodec(SerializationTypeEnum.HESSIAN.getCode());
                 rpcMessage.setCompress(CompressTypeEnum.GZIP.getCode());
@@ -41,7 +39,7 @@ public class NettyRpcServerHandler extends ChannelInboundHandlerAdapter implemen
                     rpcMessage.setMessageType(HEARTBEAT_RESPONSE_TYPE);
                     rpcMessage.setData(PONG);
                 } else {
-                    RpcRequest rpcRequest = (RpcRequest)((RpcMessage) msg).getData();
+                    RpcRequest rpcRequest = (RpcRequest) msg.getData();
                     Object result = rpcRequestHandler.handle(rpcRequest);
                     log.info(String.format("server get result: %s", result.toString()));
                     rpcMessage.setMessageType(RESPONSE_TYPE);
@@ -57,10 +55,6 @@ public class NettyRpcServerHandler extends ChannelInboundHandlerAdapter implemen
 
                 }
             }
-        }finally {
-            // Ensure that ByteBuf is released, otherwise there may be memory leaks
-            ReferenceCountUtil.release(msg);
-        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package github.cheneykwok.remoting.transport.netty.server;
 
 
-import github.cheneykwok.config.CustomShutdownHook;
 import github.cheneykwok.config.RpcServiceConfig;
 import github.cheneykwok.factory.SingleFactory;
 import github.cheneykwok.provider.ServiceProvider;
@@ -36,7 +35,7 @@ public class NettyRpcServer {
     }
 
     public void start() {
-        CustomShutdownHook.me().clearRegistry(PORT);
+//        CustomShutdownHook.me().clearRegistry(PORT);
         NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
         DefaultEventLoopGroup serviceHandlerGroup = new DefaultEventLoopGroup(
@@ -65,7 +64,11 @@ public class NettyRpcServer {
                     });
 
             // 绑定端口，同步等待绑定成功
-            ChannelFuture channelFuture = b.bind(InetAddress.getLocalHost().getHostAddress(), PORT).sync();
+            String host = InetAddress.getLocalHost().getHostAddress();
+            ChannelFuture channelFuture = b.bind(host, PORT).sync();
+            if (channelFuture.isSuccess()) {
+                log.info("server start success bind [{}:{}]", host, PORT);
+            }
             // 等待服务器监听端口关闭
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {

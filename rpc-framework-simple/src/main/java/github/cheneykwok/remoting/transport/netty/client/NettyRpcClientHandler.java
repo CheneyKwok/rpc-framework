@@ -11,7 +11,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
+public class NettyRpcClientHandler extends SimpleChannelInboundHandler<RpcMessage> {
 
     private final UnprocessedRequests unprocessedRequests;
 
@@ -22,16 +22,14 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler {
         this.nettyRpcClient = SingleFactory.getInstance(NettyRpcClient.class);
     }
 
-
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (msg instanceof RpcMessage) {
-            RpcMessage rpcMessage = (RpcMessage) msg;
-            byte messageType = rpcMessage.getMessageType();
+    protected void channelRead0(ChannelHandlerContext ctx, RpcMessage msg) throws Exception {
+        if (msg != null) {
+            byte messageType = msg.getMessageType();
             if (messageType == RpcConstants.HEARTBEAT_RESPONSE_TYPE) {
-                log.info("heart [{}]", rpcMessage.getData());
+                log.info("heart [{}]", msg.getData());
             } else if (messageType == RpcConstants.RESPONSE_TYPE) {
-                RpcResponse rpcResponse = (RpcResponse) rpcMessage.getData();
+                RpcResponse rpcResponse = (RpcResponse) msg.getData();
                 unprocessedRequests.complete(rpcResponse);
             }
         }

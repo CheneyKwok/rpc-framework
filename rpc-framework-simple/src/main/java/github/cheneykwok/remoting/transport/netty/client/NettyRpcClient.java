@@ -1,6 +1,5 @@
 package github.cheneykwok.remoting.transport.netty.client;
 
-import com.sun.javafx.scene.EnteredExitedHandler;
 import github.cheneykwok.enums.CompressTypeEnum;
 import github.cheneykwok.enums.SerializationTypeEnum;
 import github.cheneykwok.extension.ExtensionLoader;
@@ -57,8 +56,8 @@ public class NettyRpcClient implements RpcRequestTransport {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline p = socketChannel.pipeline();
                         p.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
-                        p.addLast(new RpcMessageDecoder());
                         p.addLast(new RpcMessageEncoder());
+                        p.addLast(new RpcMessageDecoder());
                         p.addLast(new NettyRpcClientHandler());
                     }
                 });
@@ -76,7 +75,7 @@ public class NettyRpcClient implements RpcRequestTransport {
                 log.info("client connected [{}] successfully", inetSocketAddress.toString());
                 future.complete(f.channel());
             } else {
-                throw new IllegalStateException();
+                throw new IllegalStateException("connect failed " + f.cause());
             }
         });
         return future.get();

@@ -1,0 +1,2 @@
+kryo=github.cheneykwok.serialize.kryo.KryoSerializer
+hessian=github.cheneykwok.serialize.hessian.HessianSerializer

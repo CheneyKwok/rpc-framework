@@ -3,12 +3,12 @@ package github.cheneykwok.spring;
 import github.cheneykwok.annotations.RpcReference;
 import github.cheneykwok.annotations.RpcService;
 import github.cheneykwok.config.RpcServiceConfig;
+import github.cheneykwok.extension.ExtensionLoader;
 import github.cheneykwok.factory.SingleFactory;
 import github.cheneykwok.provider.ServiceProvider;
 import github.cheneykwok.provider.impl.ZKServiceProviderImpl;
 import github.cheneykwok.proxy.RpcClientProxy;
-import github.cheneykwok.remoting.transport.socket.SocketRpcClient;
-import github.cheneykwok.remoting.transport.socket.SocketRpcServer;
+import github.cheneykwok.remoting.transport.netty.server.NettyRpcServer;
 import github.cheneykwok.remoting.transport.RpcRequestTransport;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -27,7 +27,7 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
 
     public SpringBeanPostProcessor() {
         this.serviceProvider = SingleFactory.getInstance(ZKServiceProviderImpl.class);
-        this.rpcClient = new SocketRpcClient();
+        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcRequestTransport.class).getExtension("netty");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
                     .version(version)
                     .group(group)
                     .build();
-            serviceProvider.publishService(rpcServiceConfig, SocketRpcServer.port);
+            serviceProvider.publishService(rpcServiceConfig, NettyRpcServer.PORT);
 
         }
         return bean;

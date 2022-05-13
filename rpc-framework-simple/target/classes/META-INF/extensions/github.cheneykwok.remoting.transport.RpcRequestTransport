@@ -1,0 +1,2 @@
+socket=github.cheneykwok.remoting.transport.socket.SocketRpcClient
+netty=github.cheneykwok.remoting.transport.netty.client.NettyRpcClient

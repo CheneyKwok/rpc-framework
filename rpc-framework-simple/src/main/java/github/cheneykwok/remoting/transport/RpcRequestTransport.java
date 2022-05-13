@@ -1,7 +1,9 @@
 package github.cheneykwok.remoting.transport;
 
+import github.cheneykwok.extension.SPI;
 import github.cheneykwok.remoting.dto.RpcRequest;
 
+@SPI
 public interface RpcRequestTransport {
 
     /**

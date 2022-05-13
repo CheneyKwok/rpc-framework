@@ -9,7 +9,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public enum CompressTypeEnum {
 
-    GZIP((byte) 0x01, "kyro"),
+    GZIP((byte) 0x01, "gzip"),
 
     NULL(Byte.MIN_VALUE, "");
 

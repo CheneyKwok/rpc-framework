@@ -68,7 +68,7 @@ public class NettyRpcServerHandler extends ChannelInboundHandlerAdapter implemen
         if (evt instanceof IdleStateEvent) {
             IdleState state = ((IdleStateEvent) evt).state();
             if (state == IdleState.READER_IDLE) {
-                log.info("idle check happen, so close the connection");
+                log.info("receive timeout, so close the connection");
                 ctx.close();
             }
         } else {

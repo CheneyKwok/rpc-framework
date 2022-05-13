@@ -6,7 +6,7 @@ import github.cheneykwok.annotations.RpcService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RpcService
+@RpcService(version = "3.0", group = "test")
 public class HelloServiceImpl implements HelloService {
 
     static {

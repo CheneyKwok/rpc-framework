@@ -1,5 +1,8 @@
 package github.cheneykwok.serialize;
 
+import github.cheneykwok.extension.SPI;
+
+@SPI
 public interface Serializer {
 
     /**

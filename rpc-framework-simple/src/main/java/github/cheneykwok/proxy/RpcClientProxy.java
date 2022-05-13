@@ -6,6 +6,7 @@ import github.cheneykwok.enums.RpcResponseCodeEnum;
 import github.cheneykwok.exception.RpcException;
 import github.cheneykwok.remoting.dto.RpcRequest;
 import github.cheneykwok.remoting.dto.RpcResponse;
+import github.cheneykwok.remoting.transport.netty.client.NettyRpcClient;
 import github.cheneykwok.remoting.transport.socket.SocketRpcClient;
 import github.cheneykwok.remoting.transport.RpcRequestTransport;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 
 @Slf4j
@@ -53,6 +55,10 @@ public class RpcClientProxy implements InvocationHandler {
                 .version(rpcServiceConfig.getVersion())
                 .build();
         RpcResponse<Object> rpcResponse = null;
+        if (rpcRequestTransport instanceof NettyRpcClient) {
+            CompletableFuture<RpcResponse<Object>> completableFuture = (CompletableFuture<RpcResponse<Object>>) rpcRequestTransport.sendRpcRequest(rpcRequest);
+            rpcResponse = completableFuture.get();
+        }
         if (rpcRequestTransport instanceof SocketRpcClient) {
             rpcResponse = (RpcResponse<Object>) rpcRequestTransport.sendRpcRequest(rpcRequest);
         }

@@ -1,9 +1,6 @@
 package github.cheneykwok.remoting.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -11,6 +8,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @Builder
+@ToString
 public class RpcRequest implements Serializable {
 
     private static final long serialVersionUID = -7072350265910398307L;

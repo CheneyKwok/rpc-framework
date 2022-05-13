@@ -9,7 +9,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public enum SerializationTypeEnum {
 
-    KYRO((byte) 0x01, "kyro"),
+    KRYO((byte) 0x01, "kryo"),
 
     PROTOSTUFF((byte) 0x012, "protostuff"),
 
